@@ -36,17 +36,20 @@ class AnnouncementController extends Controller
     public function store(Request $request)
     {
         try {
+            $uploaded_file = $request->announcementImage->store('/public/uploads');
+            
             $announcementData = new Announcement;
             
             $announcementData->announcementType              =request('announcementType');
             $announcementData->announcementDetails           =request('announcementDetails');
-            $announcementData->announcementImage             =request('announcementImage');
+            $announcementData->announcementImage             =request('announcementImage')->hashName();
+
             $announcementData->save();
-            
-            return response()->json(['Message'=>'Successfully stored'],200);
-            
+ 
+            return back();
+
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }   
     }
 
@@ -91,7 +94,7 @@ class AnnouncementController extends Controller
             
             $announcementData->save();
             
-            return response()->json(['Message'=>'Successfully updated'],200);
+            return back();
             
         } catch (\Throwable $th) {
             //throw $th;
@@ -109,7 +112,9 @@ class AnnouncementController extends Controller
         try {
             $announcementData = Announcement::find($id);
             $announcementData->delete();
-            return response()->json(['Message'=>'Delete Successfully'],200);
+            
+            return back();
+
         } catch (\Throwable $th) {
             //throw $th;
         }

@@ -38,20 +38,9 @@ class ProfileController extends Controller
     {
         //
         try {
-
-            $request->validate([
-                'profileLname'=>'required|max:191',
-                'profileFname'=>'required|max:191',
-                'profileMname'=>'required|max:191',
-                'profileGender'=>'required|max:191',
-                'profileAddress'=>'required|max:191',
-                'profileBirthDate'=>'required|max:191',
-                'profilePicture'=>'required|max:191',
-                'profileReligion'=>'required|max:191',
-                'profileCivilStatus'=>'required|max:191',
-                'profileZipCode'=>'required|max:191',
-            ]);
             
+            $uploadedfile = $request->profilePicture->store('/public/uploads');
+
             $profile = new Profile;
             
             $profile->profileLname          =request('profileLname');
@@ -60,7 +49,7 @@ class ProfileController extends Controller
             $profile->profileGender         =request('profileGender');
             $profile->profileAddress        =request('profileAddress');
             $profile->profileBirthDate      =request('profileBirthDate');
-            $profile->profilePicture        =request('profilePicture');
+            $profile->profilePicture        =request('profilePicture')->hashName();
             $profile->profileReligion       =request('profileReligion');
             $profile->profileCivilStatus    =request('profileCivilStatus');
             $profile->profileZipCode        =request('profileZipCode');
@@ -68,10 +57,11 @@ class ProfileController extends Controller
             $profile->created_at            =now();
             $profile->updated_at            =now();
             $profile->save();
-            return response()->json(['message'=> 'Profile added successfully'], 200);
+            
+            return back();
 
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
 
@@ -124,10 +114,14 @@ class ProfileController extends Controller
             
             $profile->save();
             
-            return response()->json(['Message'=>'Successfully updated'],200);
+            return back();
+
+            
             
         } catch (\Throwable $th) {
-            //throw $th;
+            // throw $th;
+
+        
         }   
     }
 
@@ -142,7 +136,8 @@ class ProfileController extends Controller
         try {
             $data = Profile::find($id);
             $data->delete();
-            return response()->json(['Message'=>'Delete Successfully'],200);
+            
+            return back();
         } catch (\Throwable $th) {
             throw $th;
         }

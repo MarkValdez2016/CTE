@@ -58,7 +58,8 @@ class EducationalBGController extends Controller
             $educationaldata->created_at            =now();
             $educationaldata->updated_at            =now();
             $educationaldata->save();
-            return response()->json(['message'=> 'Profile added successfully'], 200);
+
+            return back();
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -108,7 +109,7 @@ class EducationalBGController extends Controller
             
             $educationaldata->save();
             
-            return response()->json(['Message'=>'Successfully updated'],200);
+            return back();
             
         } catch (\Throwable $th) {
             //throw $th;
@@ -126,7 +127,9 @@ class EducationalBGController extends Controller
         try {
             $data = EducationalBG::find($id);
             $data->delete();
-            return response()->json(['Message'=>'Delete Successfully'],200);
+           
+            return back();
+            
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Training extends Model
+class Requested extends Model
 {
     use HasFactory;
 
-    protected $table = 'trainings';
+    protected $table = 'requesteds';
 
-    protected $primaryKey = 'trainingID';
+    protected $primaryKey = 'requestedID';
 
     protected $fillable = [
-
-        'trainingName', 'trainingStart', 'trainingEnd', 'trainingHours', 'trainingType', 'trainingConduct',
+        'requestDetails', 'requestImage',
     ];
 
     protected $timestamp = TRUE;

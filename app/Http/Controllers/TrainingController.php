@@ -24,7 +24,7 @@ class TrainingController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +35,23 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $trainingdata = new Training;
+
+            $trainingdata -> trainingName       = request('trainingName');
+            $trainingdata -> trainingStart       = request('trainingStart');
+            $trainingdata -> trainingEnd       = request('trainingEnd');
+            $trainingdata -> trainingHours       = request('trainingHours');
+            $trainingdata -> trainingType       = request('trainingType');
+            $trainingdata -> trainingConduct       = request('trainingConduct');
+
+            $trainingdata -> save();
+
+            return back();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
@@ -44,9 +60,13 @@ class TrainingController extends Controller
      * @param  \App\Models\Training  $training
      * @return \Illuminate\Http\Response
      */
-    public function show(Training $training)
+    public function show($id)
     {
-        //
+        $trainingdata = Training::find($id);
+
+            return $trainingdata;
+
+            return back();
     }
 
     /**
@@ -67,9 +87,26 @@ class TrainingController extends Controller
      * @param  \App\Models\Training  $training
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Training $training)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $trainingdata = Training::find($request->id);
+
+            $trainingdata->trainingName       =$request->trainingName;
+            $trainingdata->trainingStart       =$request->trainingStart;
+            $trainingdata->trainingEnd       =$request->trainingEnd;
+            $trainingdata->trainingHours      =$request->trainingHours;
+            $trainingdata->trainingType     =$request->trainingType;
+            $trainingdata->trainingConduct   =$request->trainingConduct;
+           
+            
+            $trainingdata->save();
+            
+            return back();
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }   
     }
 
     /**
@@ -78,8 +115,12 @@ class TrainingController extends Controller
      * @param  \App\Models\Training  $training
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Training $training)
+    public function destroy($id)
     {
-        //
+        $trainingdata = Training::find($id);
+
+        return $trainingdata->delete();
+
+        return back();
     }
 }

@@ -21,7 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('profileGender');
             $table->string('profileAddress');
             $table->date('profileBirthDate');
-            $table->binary('profilePicture');
+            $table->string('profilePicture');
             $table->string('profileReligion');
             $table->string('profileCivilStatus');
             $table->string('profileZipCode');

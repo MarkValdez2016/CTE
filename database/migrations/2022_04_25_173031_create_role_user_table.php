@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnnouncementsTable extends Migration
+class CreateRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateAnnouncementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('announcements', function (Blueprint $table) {
-            $table->id('announcementID');
-            $table->string('announcementType'); //Foreign Key
-            $table->string('announcementDetails');
-            $table->string('announcementImage');
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->id();
+            $table->integer('role_id')->unasigned();
+            $table->integer('user_id')->unasigned();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateAnnouncementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('role_user');
     }
 }

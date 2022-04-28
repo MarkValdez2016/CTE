@@ -22,7 +22,6 @@ class User extends Authenticatable
         'userLastName',
         'userFirstName',
         'email',
-        'userType',
         'password',
     ];
 
@@ -44,4 +43,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function hasAnyRoles($roles)
+    {
+        if ($this->role()->whereIn('name', $roles)->first())
+        {
+            return true;
+        }
+            return false;
+    }
+
+    public function hasRole($role)
+    {
+        if($this->role()->where('name', $role)->first())
+        {
+            return true;
+        }
+            return false;
+    }
 }
